@@ -1,0 +1,15 @@
+{
+  "name": "Certificate of Completion",
+  "description": "This certificate is awarded for the successful completion of the Web Development course.",
+  "image": "ipfs://<image_hash>",
+  "attributes": [
+    {
+      "trait_type": "Syllabus Hash",
+      "value": "<syllabus_hash>"
+    },
+    {
+      "trait_type": "Evaluation Logs",
+      "value": "<evaluation_logs_hash>"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "tiers": [
+    {
+      "name": "Tier 1",
+      "license": "PUCL-1.0",
+      "use_case": "Copyleft remixing with attribution"
+    },
+    {
+      "name": "Tier 2",
+      "license": "CC BY-NC-SA",
+      "use_case": "Non-commercial remixing"
+    },
+    {
+      "name": "Tier 3",
+      "license": "CC BY-NC-ND",
+      "use_case": "Protected, non-remixable content"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SageEduMint - Student Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>SageEduMint Student Dashboard</h1>
+        <p>Your central hub for managing your decentralized education.</p>
+    </header>
+
+    <main>
+        <section class="modules-overview">
+            <h2>Core Service Modules</h2>
+            <div id="module-list" class="module-list"></div>
+        </section>
+
+        <section class="governance-overview">
+            <h2>Governance</h2>
+            <div id="governance-list" class="module-list"></div>
+        </section>
+
+        <section class="prompt-section">
+            <h2>Ollama Prompt</h2>
+            <form id="prompt-form">
+                <textarea id="prompt-input" placeholder="Enter your prompt here..."></textarea>
+                <input type="text" id="model-input" placeholder="Enter model name (e.g., llama2)" />
+                <button type="submit">Send Prompt</button>
+            </form>
+            <div id="prompt-response"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 SageEduMint. All rights reserved.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

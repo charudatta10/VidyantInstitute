@@ -1,0 +1,10 @@
+learning_paths:
+  - path: web_development
+    name: Web Development
+    modules:
+      - module: intro_to_html
+        name: Introduction to HTML
+      - module: intro_to_css
+        name: Introduction to CSS
+      - module: intro_to_javascript
+        name: Introduction to JavaScript
