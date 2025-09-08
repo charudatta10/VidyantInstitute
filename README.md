@@ -1,18 +1,40 @@
-# SageEduMint
+# OpenDAO University
 
-A Modular, Decentralized University for Adaptive Learning.
+This is the official repository for OpenDAO University, a decentralized, AI-powered learning ecosystem.
 
-This repository contains the implementation of SageEduMint, a decentralized university as described in the [whitepaper](docs/whitepaper.md).
+## About
 
-## Core Modules
+OpenDAO University is a project to create a new kind of university, one that is open, decentralized, and governed by its learners. For more information, please see the [white paper](white_paper.md).
 
-- [Student Registration](src/registration/README.md)
-- [Adaptive Syllabus Generation](src/syllabus/README.md)
-- [Daily Evaluation](src/evaluation/README.md)
-- [NFT Credentialing](src/credentialing/README.md)
-- [Governance Framework](src/governance/README.md)
-- [Licensing Stack](src/licensing/README.md)
-- [Content & Curriculum Layer](src/content/README.md)
-- [Infrastructure Layer](src/infrastructure/README.md)
-- [Frontend & UX Layer](src/frontend/README.md)
-- [Security & Compliance Layer](src/security/README.md)
+## Getting Started
+
+To get started, you will need to have the following installed:
+
+*   [Node.js](https://nodejs.org/)
+*   [Git](https://git-scm.com/)
+
+Once you have these installed, you can clone the repository and install the dependencies:
+
+```
+git clone https://github.com/your-username/open_uni.git
+cd open_uni
+npm install
+```
+
+## Usage
+
+To start the development server, run the following command:
+
+```
+npm run dev
+```
+
+This will start the server on [http://localhost:3000](http://localhost:3000).
+
+## Contributing
+
+Contributions are welcome! Please see the [contributing guide](CONTRIBUTING.md) for more information.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.

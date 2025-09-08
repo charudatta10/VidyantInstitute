@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenDAO University</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIk9wZW5EQU8gVW5pdmVyc2l0eSIsCiAgInNob3J0X25hbWUiOiAiT3BlbkRBTyIsCiAgInN0YXJ0X3VybCI6ICIvIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMGYwZjIzIiwKICAidGhlbWVfY29sb3IiOiAiIzMzMzNmZiIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjNhV1IwYUQwaU1qQXdJaUJvWldsbmFIUTlJakl3TUNJZ2RtbGxkMEp2ZUQwaU1DQXdJREl3TUNBME1EQWlQaUE4Y21WamRDQjNhV1IwYUQwaU1qQXdJaUJvWldsbmFIUTlJakF4SUNBMU1DSWdabWxzYkQwaUl6TXpNek5tWmlJdlBpQThMMk4yWno0PSIsCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0KICBdCn0=">
+    <meta name="theme-color" content="#3333ff">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCA0MDAiPiA8cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjAxIDUwIiBmaWxsPSIjMzMzM2ZmIi8+IDwvc3ZnPg==">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #3333ff;
+            --secondary-color: #ff6b35;
+            --background-dark: #0f0f23;
+            --background-light: #1a1a2e;
+            --text-primary: #ffffff;
+            --text-secondary: #b4b4b4;
+            --accent-glow: rgba(51, 51, 255, 0.3);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        }
+
+        body {
+            background: var(--background-dark);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .app-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--background-light) 0%, var(--background-dark) 100%);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: var(--gradient-primary);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--accent-glow);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 4rem 0;
+            background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 5px var(--primary-color)); }
+            to { filter: drop-shadow(0 0 20px var(--primary-color)); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-button {
+            background: var(--gradient-secondary);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: linear-gradient(135deg, var(--background-light) 0%, rgba(26, 26, 46, 0.8) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary-color);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .blockchain-status {
+            background: var(--background-light);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4CAF50;
+            margin-right: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .nft-card {
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nft-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .dao-voting {
+            background: var(--background-light);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .vote-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .vote-option:hover {
+            background: rgba(51, 51, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .learning-path {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .path-step {
+            background: var(--background-light);
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+        }
+
+        .path-connector {
+            position: absolute;
+            top: 50%;
+            left: 40px;
+            right: 40px;
+            height: 2px;
+            background: var(--gradient-primary);
+            z-index: 1;
+        }
+
+        .wallet-connect {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gradient-secondary);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--background-light);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .learning-path {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .path-connector {
+                display: none;
+            }
+        }
+
+        .typing-effect {
+            border-right: 2px solid var(--primary-color);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { border-color: transparent; }
+            51%, 100% { border-color: var(--primary-color); }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="logo">🏛️ OpenDAO University</div>
+            <nav class="nav-tabs">
+                <button class="tab-btn active" data-tab="home">Home</button>
+                <button class="tab-btn" data-tab="learn">Learn</button>
+                <button class="tab-btn" data-tab="dao">DAO</button>
+                <button class="tab-btn" data-tab="credentials">Credentials</button>
+                <button class="tab-btn" data-tab="blockchain">Blockchain</button>
+            </nav>
+        </header>
+
+        <button class="wallet-connect" onclick="connectWallet()">
+            <span id="wallet-status">Connect Wallet</span>
+        </button>
+
+        <main class="main-content">
+            <!-- Home Section -->
+            <section id="home" class="section active">
+                <div class="hero-section">
+                    <h1 class="hero-title" id="hero-title-text"></h1>
+                    <p class="hero-subtitle">
+                        Experience the future of education with AI-powered, blockchain-verified learning pathways
+                        governed by a global community of learners and educators.
+                    </p>
+                    <button class="cta-button" onclick="showModal('enrollment-modal')">
+                        Start Your Journey
+                    </button>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3 class="card-title">🧠 Foundation (4 Years)</h3>
+                        <p>Personal Knowledge Management, interdisciplinary exposure, and cognitive scaffolding</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">🎓 Diploma (1 Year)</h3>
+                        <p>Applied skills and domain-specific orientation</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">🎓 Degree (2 Years)</h3>
+                        <p>Research basics, modular inquiry, and community projects</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="learning-path">
+                    <div class="path-step">🧠</div>
+                    <div class="path-step">🎓</div>
+                    <div class="path-step">🎓</div>
+                    <div class="path-step">🎓</div>
+                    <div class="path-step">🎓</div>
+                    <div class="path-connector"></div>
+                </div>
+            </section>
+
+            <!-- Learn Section -->
+            <section id="learn" class="section">
+                <h2>Adaptive Learning Engine</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3 class="card-title">🎨 Visual Learning</h3>
+                        <p>Comics, diagrams, interactive reels, and visual storytelling</p>
+                        <button class="cta-button" style="margin-top: 1rem;" onclick="simulateLearning('visual')">
+                            Start Visual Module
+                        </button>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">🔍 Deep Theory</h3>
+                        <p>Root concepts, lineage tracing, and foundational understanding</p>
+                        <button class="cta-button" style="margin-top: 1rem;" onclick="simulateLearning('theory')">
+                            Explore Theory
+                        </button>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">🎧 Audio Learning</h3>
+                        <p>Podcasts, voice notes, and auditory reinforcement</p>
+                        <button class="cta-button" style="margin-top: 1rem;" onclick="simulateLearning('audio')">
+                            Listen & Learn
+                        </button>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">🕹️ Interactive Labs</h3>
+                        <p>Simulations, virtual environments, and hands-on practice</p>
+                        <button class="cta-button" style="margin-top: 1rem;" onclick="simulateLearning('interactive')">
+                            Enter Lab
+                        </button>
+                    </div>
+                </div>
+
+                <div class="blockchain-status">
+                    <h3>📚 Daily Evaluation System</h3>
+                    <p><span class="status-indicator"></span> AI-powered micro-assessments active</p>
+                    <p>Today's Score: <strong id="daily-score">N/A</strong></p>
+                    <p>Weekly Trend: <strong style="color: #4CAF50;">↗ Improving</strong></p>
+                </div>
+            </section>
+
+            <!-- DAO Section -->
+            <section id="dao" class="section">
+                <h2>Governance & Community</h2>
+                
+                <div class="dao-voting">
+                    <h3>📊 Active Proposals</h3>
+                    <div class="vote-option" onclick="vote('curriculum-update')">
+                        <span>Update AI Ethics Curriculum</span>
+                        <span style="color: var(--primary-color);">67% Yes</span>
+                    </div>
+                    <div class="vote-option" onclick="vote('new-credential')">
+                        <span>Add Quantum Computing Certificate</span>
+                        <span style="color: var(--primary-color);">42% Yes</span>
+                    </div>
+                    <div class="vote-option" onclick="vote('treasury-allocation')">
+                        <span>Treasury Allocation for Research Grants</span>
+                        <span style="color: var(--primary-color);">89% Yes</span>
+                    </div>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3 class="card-title">👤 Your Role</h3>
+                        <p><strong>Learner-Contributor</strong></p>
+                        <p>Reputation Score: <span id="reputation-score" style="color: var(--primary-color);">N/A</span></p>
+                        <p>Voting Power: <span id="voting-power" style="color: var(--secondary-color);">N/A</span></p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">💰 Treasury</h3>
+                        <p>Total Value: <strong id="treasury-value">N/A</strong></p>
+                        <p>Available Grants: <strong id="grants-value">N/A</strong></p>
+                        <button class="cta-button" onclick="showModal('grant-modal')">Apply for Grant</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Credentials Section -->
+            <section id="credentials" class="section">
+                <h2>NFT Credentials</h2>
+                
+                <div class="card-grid" id="credentials-grid">
+                    <!-- Credentials will be dynamically inserted here -->
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">📋 Portfolio Dashboard</h3>
+                    <p>• <span id="projects-completed">0</span> Projects completed</p>
+                    <p>• <span id="peer-reviews">0</span> Peer reviews given</p>
+                    <p>• <span id="community-contributions">0</span> Community contributions</p>
+                    <p>• <span id="remix-licenses">0</span> Remix licenses issued</p>
+                    <button class="cta-button" onclick="showModal('portfolio-modal')">View Full Portfolio</button>
+                </div>
+            </section>
+
+            <!-- Blockchain Section -->
+            <section id="blockchain" class="section">
+                <h2>Blockchain Infrastructure</h2>
+                
+                <div class="blockchain-status">
+                    <h3>🔗 DHT Network Status</h3>
+                    <p><span class="status-indicator"></span> Connected to <span id="peer-count">0</span> peers</p>
+                    <p>Block Height: <strong id="block-height">N/A</strong></p>
+                    <p>Network Hash Rate: <strong>2.4 TH/s (Simulated)</strong></p>
+                    <p>Last Transaction: <strong id="last-tx">N/A</strong></p>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3 class="card-title">⚡ WebAssembly Engine</h3>
+                        <p>Python blockchain logic compiled to WASM for browser execution</p>
+                        <p>Status: <span id="wasm-status" style="color: #ff6b35;">Loading...</span></p>
+                        <p>Memory Usage: <span id="wasm-memory">N/A</span></p>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">🌐 P2P Network</h3>
+                        <p>Distributed hash table for decentralized content storage</p>
+                        <p>Your Node ID: <code id="node-id" style="color: var(--primary-color);">N/A</code></p>
+                        <button class="cta-button" onclick="refreshPeers()">Refresh Peers</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Modals -->
+        <div id="enrollment-modal" class="modal">
+            <div class="modal-content">
+                <button class="close-btn" onclick="closeModal('enrollment-modal')">&times;</button>
+                <h2>🚀 Begin Your Learning Journey</h2>
+                <p>Connect your wallet to mint your Learner NFT and join the OpenDAO University community.</p>
+                <button class="cta-button" onclick="enrollStudent()">Mint Learner NFT (0.1 ETH)</button>
+            </div>
+        </div>
+
+        <div id="grant-modal" class="modal">
+            <div class="modal-content">
+                <button class="close-btn" onclick="closeModal('grant-modal')">&times;</button>
+                <h2>💰 Research Grant Application</h2>
+                <p>Submit your proposal for community review and DAO voting.</p>
+                <textarea id="grant-proposal" placeholder="Describe your research proposal..." style="width: 100%; height: 100px; margin: 1rem 0; padding: 1rem; border-radius: 10px; background: var(--background-dark); color: var(--text-primary); border: 1px solid rgba(255,255,255,0.2);"></textarea>
+                <button class="cta-button" onclick="submitGrant()">Submit Proposal</button>
+            </div>
+        </div>
+
+        <div id="portfolio-modal" class="modal">
+            <div class="modal-content">
+                <button class="close-btn" onclick="closeModal('portfolio-modal')">&times;</button>
+                <h2>📚 Learning Portfolio</h2>
+                <div id="portfolio-content" style="text-align: left;">
+                    <!-- Portfolio content will be dynamically inserted here -->
+                </div>
+                <button class="cta-button" onclick="exportPortfolio()">Export as NFT</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- PWA Service Worker Registration ---
+        if ('serviceWorker' in navigator) {
+            const swJS = `
+                self.addEventListener('install', event => {
+                    event.waitUntil(self.skipWaiting());
+                });
+                self.addEventListener('activate', event => {
+                    event.waitUntil(self.clients.claim());
+                });
+                self.addEventListener('fetch', event => {
+                    event.respondWith(fetch(event.request));
+                });
+            `;
+            const swBlob = new Blob([swJS], { type: 'application/javascript' });
+            const swUrl = URL.createObjectURL(swBlob);
+            navigator.serviceWorker.register(swUrl);
+        }
+
+        // --- DOM Elements ---
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const sections = document.querySelectorAll('.section');
+        const walletStatus = document.getElementById('wallet-status');
+        const heroTitleText = document.getElementById('hero-title-text');
+        const modals = document.querySelectorAll('.modal');
+        const blockHeightEl = document.getElementById('block-height');
+        const peerCountEl = document.getElementById('peer-count');
+        const lastTxEl = document.getElementById('last-tx');
+        const wasmStatusEl = document.getElementById('wasm-status');
+        const wasmMemoryEl = document.getElementById('wasm-memory');
+        const dailyScoreEl = document.getElementById('daily-score');
+        const credentialsGrid = document.getElementById('credentials-grid');
+        const portfolioContent = document.getElementById('portfolio-content');
+
+        // --- State ---
+        let pyodide = null;
+        let blockchain = null;
+        let walletConnected = false;
+        let walletAddress = '';
+
+        // --- Pyodide Initialization ---
+        async function initPyodide() {
+            try {
+                pyodide = await loadPyodide();
+                console.log("Pyodide loaded.");
+                wasmStatusEl.textContent = 'Loaded';
+                wasmStatusEl.style.color = '#4CAF50';
+
+                const response = await fetch('./src/blockchain.py');
+                const pythonScript = await response.text();
+                pyodide.runPython(pythonScript);
+                console.log("Python script loaded.");
+
+                const OpenDAOBlockchain = pyodide.globals.get('OpenDAOBlockchain');
+                blockchain = OpenDAOBlockchain();
+                console.log("Blockchain instance created.");
+
+                updateUI();
+                setInterval(updateUI, 5000);
+
+            } catch (error) {
+                console.error("Pyodide initialization failed:", error);
+                wasmStatusEl.textContent = 'Error';
+                wasmStatusEl.style.color = '#ff3b30';
+            }
+        }
+
+        // --- UI Interaction ---
+        function switchTab(tabId) {
+            sections.forEach(section => section.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            tabButtons.forEach(button => button.classList.remove('active'));
+            document.querySelector(`.tab-btn[data-tab='${tabId}']`).classList.add('active');
+        }
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => switchTab(button.dataset.tab));
+        });
+
+        async function connectWallet() {
+            if (walletConnected) return;
+            walletStatus.textContent = 'Connecting...';
+            await new Promise(res => setTimeout(res, 1500));
+            walletAddress = `0x${(Math.random().toString(16) + '0000000000000').slice(2, 14)}`;
+            walletStatus.textContent = `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`;
+            walletConnected = true;
+            document.getElementById('node-id').textContent = walletAddress;
+        }
+
+        function showModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function enrollStudent() {
+            if (!walletConnected || !blockchain) {
+                alert('Please connect your wallet and wait for the blockchain to initialize.');
+                return;
+            }
+            alert('Minting your Learner NFT...');
+            blockchain.create_transaction(walletAddress, "OpenDAO", 10, { type: "enrollment" });
+            mineBlock();
+            blockchain.issue_credential(walletAddress, `learner-nft-${Date.now()}`, { enrolled: true });
+            closeModal('enrollment-modal');
+            updateUI();
+        }
+
+        function submitGrant() {
+            if (!walletConnected || !blockchain) {
+                alert('Please connect your wallet and wait for the blockchain to initialize.');
+                return;
+            }
+            const proposal = document.getElementById('grant-proposal').value;
+            if (!proposal) {
+                alert('Please enter a proposal.');
+                return;
+            }
+            alert('Submitting your grant proposal...');
+            blockchain.create_transaction(walletAddress, "DAO_Treasury", 0, { type: "grant_proposal", text: proposal });
+            mineBlock();
+            closeModal('grant-modal');
+        }
+
+        function exportPortfolio() {
+            if (!walletConnected || !blockchain) {
+                alert('Please connect your wallet and wait for the blockchain to initialize.');
+                return;
+            }
+            alert('Exporting portfolio as NFT...');
+            const credentials = blockchain.get_credentials(walletAddress).toJs();
+            blockchain.create_transaction(walletAddress, walletAddress, 0, { type: "export_portfolio", credentials });
+            mineBlock();
+            closeModal('portfolio-modal');
+        }
+
+        function vote(proposal) {
+            if (!walletConnected || !blockchain) {
+                alert('Please connect your wallet to vote.');
+                return;
+            }
+            alert(`Voted on: ${proposal}`);
+            blockchain.create_transaction(walletAddress, "DAO_Governance", 0, { type: "vote", proposal });
+            mineBlock();
+        }
+
+        function simulateLearning(type) {
+            if (!walletConnected || !blockchain) {
+                alert('Please connect your wallet to start learning.');
+                return;
+            }
+            alert(`Simulating ${type} learning module...`);
+            blockchain.create_transaction(walletAddress, "LearningEngine", 5, { type: "learning_activity", module: type });
+            mineBlock();
+            updateUI();
+        }
+
+        function refreshPeers() {
+            if (!blockchain) return;
+            const currentPeers = blockchain.peers.size;
+            blockchain.add_peer(`peer-${Date.now()}`);
+            alert(`Found ${blockchain.peers.size - currentPeers} new peer(s).`);
+            updateUI();
+        }
+
+        function mineBlock() {
+            const lastBlock = blockchain.get_last_block();
+            const lastProof = lastBlock.get('proof');
+            const proof = blockchain.proof_of_work(lastProof);
+            const previousHash = blockchain.hash(lastBlock);
+            blockchain.create_block(proof, previousHash);
+            console.log("New block mined.");
+        }
+
+        // --- UI Update ---
+        function updateUI() {
+            if (!blockchain) return;
+
+            const lastBlock = blockchain.get_last_block().toJs()[0];
+            blockHeightEl.textContent = lastBlock.index;
+            peerCountEl.textContent = blockchain.peers.size;
+            lastTxEl.textContent = new Date(lastBlock.timestamp).toLocaleTimeString();
+            
+            if (walletConnected) {
+                const credentials = blockchain.get_credentials(walletAddress).toJs();
+                credentialsGrid.innerHTML = '';
+                if (credentials.length > 0) {
+                    credentials.forEach(cred => {
+                        const card = document.createElement('div');
+                        card.className = 'nft-card';
+                        card.innerHTML = `<h3>${cred.credential_id}</h3><p>${JSON.stringify(cred.data)}</p>`;
+                        credentialsGrid.appendChild(card);
+                    });
+                } else {
+                    credentialsGrid.innerHTML = '<p>No credentials earned yet.</p>';
+                }
+
+                portfolioContent.innerHTML = `<h4>Recent Achievements:</h4><ul>${credentials.map(c => `<li>✅ ${c.credential_id}</li>`).join('')}</ul>`;
+            }
+        }
+
+        // --- Typing Effect ---
+        const heroText = "Decentralized Learning";
+        let i = 0;
+        function typeWriter() {
+            if (i < heroText.length) {
+                heroTitleText.innerHTML += heroText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 150);
+            } else {
+                heroTitleText.classList.remove('typing-effect');
+            }
+        }
+
+        // --- Initial Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            typeWriter();
+            initPyodide();
+        });
+    </script>
+</body>
+</html>

@@ -1,30 +1,23 @@
 {
-  "name": "sageedumint",
+  "name": "open_uni",
   "version": "1.0.0",
-  "description": "A Modular, Decentralized University for Adaptive Learning.",
+  "description": "This is the official repository for OpenDAO University, a decentralized, AI-powered learning ecosystem.",
   "main": "index.js",
   "directories": {
     "doc": "docs",
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/charudatta10/SageEduMint.git"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/charudatta10/SageEduMint/issues"
-  },
-  "homepage": "https://github.com/charudatta10/SageEduMint#readme",
   "dependencies": {
-    "axios": "^1.11.0",
-    "body-parser": "^2.2.0",
-    "express": "^5.1.0"
+    "next": "^15.4.6",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   }
 }
