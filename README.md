@@ -1,5 +1,10 @@
 # OpenDAO University
 
+<p align="center">
+  <img src="assets/cover.png" alt="SageEduMint" width="800"/>
+</p>
+
+
 ![Version](https://img.shields.io/github/v/release/charudatta10/SageEduMint)
 ![License](https://img.shields.io/github/license/charudatta10/SageEduMint)
 
