@@ -1,10 +1,21 @@
 # OpenDAO University
 
+![Version](https://img.shields.io/github/v/release/charudatta10/SageEduMint)
+![License](https://img.shields.io/github/license/charudatta10/SageEduMint)
+
 This is the official repository for OpenDAO University, a decentralized, AI-powered learning ecosystem.
 
 ## About
 
 OpenDAO University is a project to create a new kind of university, one that is open, decentralized, and governed by its learners. For more information, please see the [white paper](white_paper.md).
+
+## Features
+
+- Decentralized, AI-powered learning ecosystem
+- Credentialing and credential-minting system
+- Adaptive learning engine
+- Governance, licensing, and registration modules
+- DHT-based credential manager service
 
 ## Getting Started
 
