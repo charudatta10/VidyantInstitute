@@ -307,3 +307,9 @@ poetry.toml
 
 # LSP config files
 pyrightconfig.json
+
+# Project-specific
+.log
+sageedum_data/
+torrents/
+users.json
